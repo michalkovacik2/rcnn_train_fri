@@ -117,7 +117,6 @@ def main(args):
 
     # If model_dir is present it will load the previously saved model, not start from default pretrained on COCO dataset
     if not args.model_dir:
-        print('Creating new model, because model_dir is not present...')
         cfg.merge_from_file(model_zoo.get_config_file(f"COCO-Detection/{args.model}.yaml"))
         cfg.MODEL.WEIGHTS = model_zoo.get_checkpoint_url(f"COCO-Detection/{args.model}.yaml")
         cfg.DATASETS.TRAIN = ("car_train",)
