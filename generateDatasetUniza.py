@@ -47,7 +47,21 @@ for folder in ['train']:
     annot_df.to_csv(file_name_corrected_results_uniza, index=False)
     del annot_df
 
-
+'''
+# For train and validation dataset
+# Prepare annotation files
+for folder in ['train', 'validation']:
+    # Load data
+    annot_df = pd.read_csv(f"{folder}-annotations-bbox.csv")
+    # Inner join to keep only target classes
+    annot_df = annot_df.merge(subset_classes, on='LabelName')
+    # Create `ClassID` column
+    annot_df['ClassID'] = annot_df['Class'].apply(lambda x: class2id[x])
+    # Save truncated annot_df
+    annot_df.to_csv(f"{folder}-annotations-bbox-truncated.csv", index=False)
+    del annot_df
+'''
+    
 def denormalize_bboxes(bboxes, height, width):
     """Denormalize bounding boxes in format of (xmin, ymin, xmax, ymax)."""
     bboxes[:, [0, 2]] = bboxes[:, [0, 2]] * width
